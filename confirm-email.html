@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Confirm Email</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Manrope:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/style.css" />
+</head>
+<body data-page="confirmEmail" body data-show-back="true" data-show-title="false">
+  <div id="header-placeholder"></div>
+  <div id="sub-header-placeholder"></div>
+
+  <main class="main-container">
+    <h1 id="heading"></h1>
+    <p id="line1"></p>
+    <p id="line2"></p>
+
+    <div class="input-group">
+      <label for="confirmationCode" id="codeLabel"></label>
+      <input type="text" id="codePlaceholder" placeholder="" />
+    </div>
+
+    <div class="button-group">
+      <button class="btn btn-primary" id="continueButton"></button>
+    </div>
+
+    <p id="spamHintPage" class="input-hint"></p>
+  </main>
+
+  <div id="redirectMessage" class="main-container redirect-message" style="display: none;">
+    <h1>Thank you for providing additional information</h1>
+    <p>Redirecting to checkout...</p>
+    <div class="spinner-wrapper">
+      <img src="assets/spinner.gif" alt="Loading..." width="165" height="109" />
+    </div>
+  </div>
+  
+
+  <script src="scripts/texts.js"></script>
+  <script src="scripts/main.js"></script>
+  <script src="scripts/confirm-email.js"></script>
+</body>
+</html>

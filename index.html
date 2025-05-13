@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Claim your journal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Manrope:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/style.css" />
+</head>
+<body data-page="index" body data-show-back="true" data-show-title="false">
+  <div id="header-placeholder"></div>
+  <div id="sub-header-placeholder"></div>
+
+  <main class="main-container">
+    <h1 id="title"></h1>
+    <p id="subtitle"></p>
+
+    <div class="input-group">
+      <label for="searchInput" id="searchLabel"></label>
+      <input type="text" id="searchPlaceholder" placeholder="" />
+      <div id="dropdown" class="dropdown" style="display: none;"></div>
+      <div id="searchError" class="input-error" style="display: none;"></div>
+    </div>
+
+    <div class="button-group">
+        <button class="btn btn-primary" id="continueIndexButton"></button>
+    </div>
+  </main>
+
+  <script src="scripts/texts.js"></script>
+  <script src="scripts/main.js"></script>       <!-- Загальна логіка -->
+  <script src="scripts/index.js"></script>      <!-- Логіка лише для index -->
+  
+</body>
+</html>

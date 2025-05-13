@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Checkout</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Manrope:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/style.css" />
+</head>
+<body data-page="checkout" class="checkout-body" body data-show-back="true" data-show-title="true">
+  <div id="header-placeholder"></div>
+  <div id="sub-header-placeholder"></div>
+
+  <main class="checkout-container">
+    <div class="checkout-left" id="checkoutLeft">
+        <div class="card">
+            <div class="card-header" id="billingHeader"></div>
+            <div class="divider-horizontal"></div>
+            <div class="card-body">
+                <div class="input-group">
+                  <label for="company" id="labelCompany"></label>
+                  <input type="text" id="company" />
+                </div>
+              
+                <div class="input-group">
+                  <label for="department" id="labelDepartment"></label>
+                  <input type="text" id="department" />
+                </div>
+              
+                <div class="row-inputs">
+                  <div class="input-group">
+                    <label for="firstName" id="labelFirstName"></label>
+                    <input type="text" id="firstName" />
+                  </div>
+                  <div class="input-group">
+                    <label for="lastName" id="labelLastName"></label>
+                    <input type="text" id="lastName" />
+                  </div>
+                </div>
+              
+                <div class="input-group">
+                  <label for="address" id="labelAddress"></label>
+                  <input type="text" id="address" />
+                </div>
+              
+                <div class="row-inputs">
+                  <div class="input-group">
+                    <label for="country" id="labelCountry"></label>
+                    <input type="text" id="country" />
+                  </div>
+                  <div class="input-group">
+                    <label for="city" id="labelCity"></label>
+                    <input type="text" id="city" />
+                  </div>
+                </div>
+              
+                <div class="row-inputs">
+                  <div class="input-group">
+                    <label for="state" id="labelState"></label>
+                    <input type="text" id="state" />
+                  </div>
+                  <div class="input-group">
+                    <label for="postalCode" id="labelPostalCode"></label>
+                    <input type="text" id="postalCode" />
+                  </div>
+                </div>
+              </div>              
+            <div class="divider-horizontal"></div>
+            <div class="card-footer">
+              <button class="btn btn-primary" id="continueButton"></button>
+            </div>
+          </div>
+          
+          <div class="card card-collapsed">
+            <div class="card-header" id="creditCardDetails"></div>
+            <div class="divider-horizontal"></div>
+            <div class="card-body"></div>
+            <div class="card-footer">
+              <button class="btn btn-primary" id="continueButton2"></button>
+            </div>
+          </div>
+          
+          <div class="card card-collapsed">
+            <div class="card-header" id="orderReview"></div>
+            <div class="divider-horizontal"></div>
+            <div class="card-body"></div>
+            <div class="card-footer">
+              <button class="btn btn-primary" id="continueButton3"></button>
+            </div>
+          </div>                 
+      <!-- Тут можна додати додаткові елементи -->
+    </div>
+
+    <div class="checkout-right" id="checkoutRight">
+        <div class="card">
+            <div class="card-header" id="summaryHeader"></div>
+            <div class="divider-horizontal"></div>
+            <div class="card-body">
+                <div class="medium-heading">Journal Home Lite for Nature Sciences</div>
+                <p class="summary-secondary-text">Annual subscription</p>
+              
+                <div class="summary-row">
+                    <span class="summary-label">Starting Apr 30, 2025</span>
+                  <span class="summary-label">€399.00/year</span>
+                </div>
+              
+                <div class="summary-row">
+                  <span class="summary-label">VAT (0%)</span>
+                  <span class="summary-value">€0.00</span>
+                </div>
+              
+                <div class="divider-horizontal-right-column"></div>
+              
+                <div class="summary-row">
+                  <span class="summary-label">Due today:</span>
+                  <span class="medium-heading">€399.00</span>
+                </div>
+              
+                <div class="divider-horizontal-right-column"></div>
+              
+                <ul class="summary-bullets">
+                  <li>Cancel anytime</li>
+                  <li>You will get a reminder 2 weeks before next due date</li>
+                </ul>
+              </div>              
+          </div>   
+    </div>
+  </main>
+
+  <script src="scripts/texts.js"></script>
+  <script src="scripts/main.js"></script>
+  <script src="scripts/checkout.js"></script>
+</body>
+</html>
