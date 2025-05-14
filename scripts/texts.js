@@ -14,13 +14,14 @@ const pageTexts = {
       confirmationText: "I affirm that I am affiliated with this journal and have the authority to register as a business representative.",
       continueConfirmButton: "Log in / Sign up to continue"
     },
-    confirmJournalLoggedIn: {
-      title: "Claim your journal",git status
 
+    confirmJournalLoggedIn: {
+      title: "Claim your journal",
       confirmationText: "I affirm that I am affiliated with this journal and have the authority to register as a business representative.",
       continueConfirmButton: "Confirm and continue"
     },
-        confirmJournalBusinessLoggedIn: {
+
+    confirmJournalBusinessLoggedIn: {
       title: "Claim your journal",
       confirmationText: "I affirm that I am affiliated with this journal and have the authority to register as a business representative.",
       continueConfirmButton: "Confirm and continue"
