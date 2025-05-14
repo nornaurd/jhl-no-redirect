@@ -1,17 +1,28 @@
-// scripts/signup.js – логіка форми реєстрації
+// signup.js – реєстрація + підтвердження email (код «000000»)
+// По аналогії з login.js: замість спінера в кнопці показуємо оверлей
+// із текстом «Logging in…» та чорним спінером 18×18 px у центрі модалки.
 
 function toggleInvalid(el, invalid) {
   if (!el) return;
   const wrapper = el.closest('.input-group') || el.closest('.checkbox-wrapper');
-  if (invalid) {
-    el.classList.add('invalid');
-    if (wrapper) wrapper.classList.add('invalid');
-  } else {
-    el.classList.remove('invalid');
-    if (wrapper) wrapper.classList.remove('invalid');
-  }
+  el.classList.toggle('invalid', invalid);
+  wrapper?.classList.toggle('invalid', invalid);
 }
 
+/* ===============================================================
+   Разове підключення @keyframes spin (доступно й для інших скриптів)
+   =============================================================== */
+(function ensureSpinKeyframes() {
+  if (document.getElementById('inline-spinner-style')) return;
+  const style = document.createElement('style');
+  style.id = 'inline-spinner-style';
+  style.textContent = `@keyframes spin { to { transform: rotate(360deg); } }`;
+  document.head.appendChild(style);
+})();
+
+/* ===============================================================
+   Основна логіка
+   =============================================================== */
 document.addEventListener('DOMContentLoaded', () => {
   const createAccountBtn  = document.getElementById('createAccountButton');
   if (!createAccountBtn) return;
@@ -23,14 +34,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const termsCheckbox     = document.getElementById('signupCheckbox');
   const checkboxWrapper   = termsCheckbox?.closest('.checkbox-wrapper');
 
+  // при вводі прибираємо помилки
   [firstNameInput, lastNameInput, signupEmailInput, signupPasswordInp].forEach(inp => {
-    if (!inp) return;
-    inp.addEventListener('input', () => toggleInvalid(inp, false));
+    inp?.addEventListener('input', () => toggleInvalid(inp, false));
   });
-  if (termsCheckbox) {
-    termsCheckbox.addEventListener('change', () => toggleInvalid(termsCheckbox, false));
-  }
+  termsCheckbox?.addEventListener('change', () => toggleInvalid(termsCheckbox, false));
 
+  /* ---------------- «Create account» ---------------- */
   createAccountBtn.addEventListener('click', e => {
     e.preventDefault();
     let hasError = false;
@@ -44,29 +54,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!termsCheckbox?.checked) {
       toggleInvalid(termsCheckbox, true);
-      if (checkboxWrapper) checkboxWrapper.classList.add('invalid');
+      checkboxWrapper?.classList.add('invalid');
       hasError = true;
     }
 
     if (hasError) return;
 
-    const email   = signupEmailInput.value.trim().toLowerCase();
-    const domain  = email.substring(email.lastIndexOf('@') + 1);
-    const allowed = Array.isArray(window.recognizedDomains)
-      ? window.recognizedDomains.map(d => d.toLowerCase())
-      : [];
+    // зберігаємо email у sessionStorage
+    const email = signupEmailInput.value.trim().toLowerCase();
+    try { sessionStorage.setItem('loginEmail', email); } catch (_) {}
 
-    const isDomainRecognized = allowed.includes(domain);
-    showConfirmationStep(isDomainRecognized);
+    showConfirmationStep();
   });
 
-  function showConfirmationStep(isDomainRecognized) {
-    const authTitle         = document.getElementById('authTitle');
-    const loginForm         = document.getElementById('loginForm');
-    const signupForm        = document.getElementById('signupForm');
+  /* ---------------- Крок «Confirm email» ---------------- */
+  function showConfirmationStep() {
+    const authTitle  = document.getElementById('authTitle');
+    const loginForm  = document.getElementById('loginForm');
+    const signupForm = document.getElementById('signupForm');
 
-    if (loginForm)  loginForm.style.display  = 'none';
-    if (signupForm) signupForm.style.display = 'none';
+    loginForm && (loginForm.style.display  = 'none');
+    signupForm && (signupForm.style.display = 'none');
 
     let confirmForm = document.getElementById('confirmEmailForm');
     if (confirmForm) {
@@ -74,32 +82,29 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
+    // тексти (можна локалізувати через pageTexts)
     const t = pageTexts?.confirmEmail ?? {
       heading: 'Check your inbox',
-      line1: 'We\'ve sent a confirmation code to your email.',
+      line1: "We've sent a confirmation code to your email.",
       line2: 'Enter it below to continue.',
       codePlaceholder: 'Enter the code from your email',
       continueButton: 'Continue',
-      spamHint: 'Didn’t get the email? Check your spam folder.'
+      spamHint: "Didn’t get the email? Check your spam folder."
     };
 
-    if (authTitle) authTitle.innerText = t.heading;
+    authTitle && (authTitle.innerText = t.heading);
 
+    /* --- конструюємо форму --- */
     confirmForm = document.createElement('div');
     confirmForm.id = 'confirmEmailForm';
 
     const p1 = document.createElement('p');
     p1.innerHTML = t.line1;
-    p1.style.marginBottom = '0px';
-    p1.style.fontSize = '14px';
-    p1.style.lineHeight = '20px';
+    p1.style.cssText = 'margin-bottom:0;font-size:14px;line-height:20px';
 
     const p2 = document.createElement('p');
     p2.innerText = t.line2;
-    p2.style.marginBottom = '24px';
-    p2.style.marginTop = '2px';
-    p2.style.fontSize = '14px';
-    p2.style.lineHeight = '20px';
+    p2.style.cssText = 'margin:2px 0 24px;font-size:14px;line-height:20px';
 
     const group = document.createElement('div');
     group.className = 'input-group input-group-modal';
@@ -110,8 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
     codeInput.type = 'text';
     codeInput.id = 'confirmationCodeInput';
     codeInput.placeholder = t.codePlaceholder;
-    group.appendChild(label);
-    group.appendChild(codeInput);
+    group.append(label, codeInput);
 
     const btnWrap = document.createElement('div');
     btnWrap.className = 'button-group';
@@ -123,47 +127,49 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const spamHint = document.createElement('p');
     spamHint.innerText = t.spamHint;
-    spamHint.style.textAlign = 'left';
-    spamHint.style.fontSize = '14px';
-    spamHint.style.lineHeight = '20px';
-    spamHint.style.color = '#39393A';
-    spamHint.style.marginBottom = '0';
+    spamHint.style.cssText = 'text-align:left;font-size:14px;line-height:20px;color:#39393A;margin-bottom:0';
 
-    confirmForm.appendChild(p1);
-    confirmForm.appendChild(p2);
-    confirmForm.appendChild(group);
-    confirmForm.appendChild(btnWrap);
-    confirmForm.appendChild(spamHint);
+    confirmForm.append(p1, p2, group, btnWrap, spamHint);
+    document.querySelector('#loginModal .modal-content')?.appendChild(confirmForm);
 
-    const modalContent = document.querySelector('#loginModal .modal-content');
-    modalContent?.appendChild(confirmForm);
-
+    /* --- натискання «Continue» --- */
     contBtn.addEventListener('click', () => {
       const code = codeInput.value.trim();
       if (code === '000000') {
+        /* ---------- ОВЕРЛЕЙ З ТЕКСТОМ + СПІНЕРОМ ---------- */
         const modal = document.getElementById('loginModal');
-        if (modal) modal.style.display = 'none';
+        if (!modal) return;
+        const container = modal.querySelector('.modal-body, .modal__body, .modal-content, .modal__content');
+        if (!container) return;
 
-        const claimButton = document.getElementById('continueConfirmButton');
-        if (claimButton) {
-          const width = claimButton.offsetWidth + 'px';
-          claimButton.style.width = width;
-          claimButton.disabled = true;
-          claimButton.innerHTML = '<span class="spinner small"></span>';
+        // Relative для контейнера, щоб розмістити overlay абсолютно
+        container.style.position = 'relative';
 
-          setTimeout(() => {
-            claimButton.style.width = '';
-            window.location.href = isDomainRecognized
-              ? 'checkout.html'
-              : 'additional-info.html?from=signup';
-          }, 1000);
-        } else {
-          window.location.href = isDomainRecognized
-            ? 'checkout.html'
-            : 'additional-info.html?from=signup';
-        }
+        const overlay = document.createElement('div');
+        Object.assign(overlay.style, {
+          position: 'absolute',
+          inset: 0,
+          background: '#fff',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          pointerEvents: 'none',
+          textAlign: 'center',
+        });
+        overlay.innerHTML = `
+          <h2 class="medium-heading" style="margin:0;">Creating account and logging in…</h2>
+          <div style="width:18px;height:18px;margin-top:40px;border:3px solid #000;border-top-color:transparent;border-radius:50%;animation:spin 0.8s linear infinite;"></div>
+        `;
+
+        container.appendChild(overlay);
+
+        // редірект через 1 с
+        setTimeout(() => {
+          window.location.href = 'confirm-journal-business-logged-in.html';
+        }, 2000);
       } else {
-        alert('Invalid code');
+        toggleInvalid(codeInput, true);
       }
     });
   }

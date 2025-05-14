@@ -1,6 +1,17 @@
 document.addEventListener('DOMContentLoaded', () => {
   const from = new URLSearchParams(window.location.search).get('from');
 
+  // Змінити атрибут data-logged-in у body
+  const body = document.body;
+  if (from === 'login') {
+    body.setAttribute('data-logged-in', 'true');
+  } else if (from === 'signup') {
+    body.setAttribute('data-logged-in', 'false');
+  }
+
+  console.log('FROM:', from);
+  console.log('BODY data-logged-in:', document.body.getAttribute('data-logged-in'));
+
   const emailInput = document.getElementById('additionalEmailInput');
   const emailGroup = emailInput?.parentElement;
   const infoGroup = document.getElementById('infoGroup');

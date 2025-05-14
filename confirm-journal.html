@@ -3,185 +3,148 @@
 <head>
   <meta charset="UTF-8" />
   <title>Confirm Journal</title>
+
+  <!-- шрифти та базові стилі -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Manrope:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles/style.css" />
 </head>
-<body data-page="confirmJournal" body data-show-back="true" data-show-title="false">
 
+<body data-page="confirmJournal" data-show-title="false">
+
+  <!-- хедери підтягуються скриптом -->
   <div id="header-placeholder"></div>
   <div id="sub-header-placeholder"></div>
 
-    <!-- Спінер тільки над основним контентом -->
-    <div id="loader" style="display: none; align-items: center; justify-content: center; height: 200px;">
-      <img src="assets/spinner.gif" alt="Loading..." width="165" height="109"/>
+  <!-- спінер -->
+  <div id="loader" style="display:none;align-items:center;justify-content:center;height:200px;">
+    <img src="assets/spinner.gif" alt="Loading." width="165" height="109">
+  </div>
+
+  <!-- основний контент -->
+  <main class="main-container" id="page-content" style="display:none;">
+    <h1 id="title"></h1>
+
+    <!-- блок даних про журнал (без змін) -->
+    <div class="journal-info">
+      <div class="medium-heading">Nature Sciences</div>
+      <div class="publisher">Wiley</div>
+      <div class="metadata">Online ISSN: 1098‑5514 · Print ISSN: 0022‑538X</div>
+
+      <div class="metrics">
+        <div class="metric">
+          <span class="metric-number">4.0 (2023)</span>
+          <span class="metric-label">Journal Impact Factor™</span>
+        </div>
+        <div class="divider"></div>
+        <div class="metric">
+          <span class="metric-number">755</span>
+          <span class="metric-label">Publications</span>
+        </div>
+        <div class="divider"></div>
+        <div class="metric">
+          <span class="metric-number">20 756</span>
+          <span class="metric-label">Reads</span>
+        </div>
+      </div>
     </div>
-  
-    <main class="main-container" id="page-content" style="display: none;">
-      <h1 id="title"></h1>
-  
-      <div class="journal-info">
-        <div class="medium-heading">Nature Sciences</div>
-        <div class="publisher">Wiley</div>
-        <div class="metadata">Online ISSN: 1098-5514 · Print ISSN: 0022-538X</div>
-      
-        <div class="metrics">
-          <div class="metric">
-            <span class="metric-number">4.0 (2023)</span>
-            <span class="metric-label">Journal Impact Factor™</span>
-          </div>
-          <div class="divider"></div>
-          <div class="metric">
-            <span class="metric-number">755</span>
-            <span class="metric-label">Publications</span>
-          </div>
-          <div class="divider"></div>
-          <div class="metric">
-            <span class="metric-number">20756</span>
-            <span class="metric-label">Reads</span>
-          </div>
-        </div>
-      </div>      
 
-      <div class="checkbox-group">
-        <div class="checkbox-wrapper">
-          <input type="checkbox" id="confirmationCheckbox" />
-        </div>
-        <label for="confirmationCheckbox" id="confirmationText"></label>
-      </div>
-  
-      <div class="button-group">
-        <button class="btn btn-primary" id="continueConfirmButton"></button>
-      </div>
-    </main>
+    <!-- чекбокс confirmationCheckbox був тут — повністю прибрано -->
 
-    <!-- <div id="loginModal" class="modal" style="display: none;">
-      <div class="modal-content">
-        <button id="closeLoginModal" class="modal-close-button" aria-label="Close modal">
-          <img src="assets/ModalCloseButton.svg" alt="Close" />
-        </button>        
-        <h2 class="medium-heading" id="loginTitle"></h2>
-    
+    <div class="button-group">
+      <button class="btn btn-primary" id="continueConfirmButton"></button>
+    </div>
+  </main>
+
+  <!-- === LOGIN / SIGNUP MODAL (усе як було) === -->
+  <div id="loginModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <button id="closeLoginModal" class="modal-close-button" aria-label="Close modal">
+        <img src="assets/ModalCloseButton.svg" alt="Close">
+      </button>
+
+      <!-- заголовок -->
+      <h2 class="medium-heading" id="authTitle"></h2>
+
+      <!-- === LOGIN FORM === -->
+      <div id="loginForm">
         <div class="input-group input-group-modal">
           <label for="emailInput" id="emailLabel"></label>
           <input type="email" id="emailInput" placeholder="">
         </div>
-    
+
         <div class="input-group input-group-modal">
           <label for="passwordInput" id="passwordLabel"></label>
           <input type="password" id="passwordInput" placeholder="">
           <div class="input-hint" id="forgotPasswordHint"></div>
         </div>
-    
+
         <div class="checkbox-group">
           <div class="checkbox-wrapper">
-            <input type="checkbox" id="keepLoggedIn" />
+            <input type="checkbox" id="keepLoggedIn">
           </div>
-          <label for="keepLoggedIn" id="keepLoggedInLabel">Keep me logged in</label>
+          <label for="keepLoggedIn" id="keepLoggedInLabel"></label>
         </div>
-    
+
         <div class="button-group">
           <button class="btn btn-primary" id="loginButton"></button>
         </div>
+
         <div class="separator-text">or</div>
-    
+
         <button class="btn btn-google">
-          <img src="assets/google_icon.png" class="btn-icon" alt="Google" />
+          <img src="assets/google_icon.png" class="btn-icon" alt="Google">
           Continue with Google
         </button>
-    
+
         <div id="signupPrompt"></div>
       </div>
-    </div> -->
-    
-    <div id="loginModal" class="modal" style="display: none;">
-      <div class="modal-content">
-        <button id="closeLoginModal" class="modal-close-button" aria-label="Close modal">
-          <img src="assets/ModalCloseButton.svg" alt="Close" />
-        </button>
-    
-        <!-- Заголовок -->
-        <h2 class="medium-heading" id="authTitle"></h2>
-    
-        <!-- === LOGIN FORM === -->
-        <div id="loginForm">
-          <div class="input-group input-group-modal">
-            <label for="emailInput" id="emailLabel"></label>
-            <input type="email" id="emailInput" placeholder="">
-          </div>
-    
-          <div class="input-group input-group-modal">
-            <label for="passwordInput" id="passwordLabel"></label>
-            <input type="password" id="passwordInput" placeholder="">
-            <div class="input-hint" id="forgotPasswordHint"></div>
-          </div>
-    
-          <div class="checkbox-group">
-            <div class="checkbox-wrapper">
-              <input type="checkbox" id="keepLoggedIn" />
-            </div>
-            <label for="keepLoggedIn" id="keepLoggedInLabel"></label>
-          </div>
-    
-          <div class="button-group">
-            <button class="btn btn-primary" id="loginButton"></button>
-          </div>
-    
-          <div class="separator-text">or</div>
-    
-          <button class="btn btn-google">
-            <img src="assets/google_icon.png" class="btn-icon" alt="Google" />
-            Continue with Google
-          </button>
-    
-          <div id="signupPrompt"></div>
-        </div>
-    
-        <!-- === SIGNUP FORM === -->
-        <div id="signupForm" style="display: none;">
-          <div class="row-inputs">
-            <div class="input-group input-group-modal">
-              <label for="firstNameInput" id="firstNameLabel"></label>
-              <input type="text" id="firstNameInput" placeholder="">
-            </div>
-            <div class="input-group input-group-modal">
-              <label for="lastNameInput" id="lastNameLabel"></label>
-              <input type="text" id="lastNameInput" placeholder="">
-            </div>
-          </div>
-    
-          <div class="input-group input-group-modal">
-            <label for="signupEmailInput" id="signupEmailLabel"></label>
-            <input type="email" id="signupEmailInput" placeholder="">
-            <div class="input-hint" id="signupEmailHint"></div>
-          </div>
-    
-          <div class="input-group input-group-modal">
-            <label for="signupPasswordInput" id="signupPasswordLabel"></label>
-            <input type="password" id="signupPasswordInput" placeholder="">
-          </div>
-    
-          <div class="checkbox-group">
-            <div class="checkbox-wrapper">
-              <input type="checkbox" id="signupCheckbox" />
-            </div>
-            <label for="signupCheckbox" id="signupCheckboxLabel"></label>
-          </div>
-    
-          <div class="button-group">
-            <button class="btn btn-primary" id="createAccountButton"></button>
-          </div>
-    
-          <div id="signinPrompt"></div>
-        </div>
-      </div>
-    </div>    
 
+      <!-- === SIGNUP FORM === -->
+      <div id="signupForm" style="display:none;">
+        <div class="row-inputs">
+          <div class="input-group input-group-modal">
+            <label for="firstNameInput" id="firstNameLabel"></label>
+            <input type="text" id="firstNameInput" placeholder="">
+          </div>
+          <div class="input-group input-group-modal">
+            <label for="lastNameInput" id="lastNameLabel"></label>
+            <input type="text" id="lastNameInput" placeholder="">
+          </div>
+        </div>
+
+        <div class="input-group input-group-modal">
+          <label for="signupEmailInput" id="signupEmailLabel"></label>
+          <input type="email" id="signupEmailInput" placeholder="">
+          <div class="input-hint" id="signupEmailHint"></div>
+        </div>
+
+        <div class="input-group input-group-modal">
+          <label for="signupPasswordInput" id="signupPasswordLabel"></label>
+          <input type="password" id="signupPasswordInput" placeholder="">
+        </div>
+
+        <div class="checkbox-group">
+          <div class="checkbox-wrapper">
+            <input type="checkbox" id="signupCheckbox">
+          </div>
+          <label for="signupCheckbox" id="signupCheckboxLabel"></label>
+        </div>
+
+        <div class="button-group">
+          <button class="btn btn-primary" id="createAccountButton"></button>
+        </div>
+
+        <div id="signinPrompt"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- скрипти -->
   <script src="scripts/texts.js"></script>
-  <script src="scripts/main.js"></script> 
+  <script src="scripts/main.js"></script>
   <script src="scripts/confirm-journal.js"></script>
   <script src="scripts/domains.js"></script>
   <script src="scripts/login.js"></script>
   <script src="scripts/signup.js"></script>
-
 </body>
 </html>

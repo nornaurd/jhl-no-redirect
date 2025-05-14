@@ -2,47 +2,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // === Завантаження header ===
   const headerPlaceholder = document.getElementById('header-placeholder');
   if (headerPlaceholder) {
-    fetch('partials/header.html')
+    const useLoggedInHeader = document.body.dataset.loggedIn === 'true';
+    const headerFile = useLoggedInHeader ? 'partials/logged-in-header.html' : 'partials/header.html';
+    fetch(headerFile)
       .then(res => res.text())
       .then(html => headerPlaceholder.innerHTML = html)
       .catch(err => console.error('Помилка при завантаженні header:', err));
-  }
-
-  // === Завантаження sub-header ===
-  const subHeaderPlaceholder = document.getElementById('sub-header-placeholder');
-  if (subHeaderPlaceholder) {
-    fetch('partials/sub-header.html')
-      .then(res => res.text())
-      .then(html => {
-        subHeaderPlaceholder.innerHTML = html;
-
-        const showBack = document.body.dataset.showBack !== 'false';
-        const showTitle = document.body.dataset.showTitle !== 'false';
-        const page = document.body.dataset.page;
-
-        const backBtn = document.getElementById('backButton');
-        const titleEl = document.getElementById('subHeaderTitle');
-
-        if (backBtn) {
-          if (!showBack) {
-            backBtn.style.display = 'none';
-          } else {
-            backBtn.addEventListener('click', e => {
-              e.preventDefault();
-              window.history.back();
-            });
-          }
-        }
-
-        if (titleEl) {
-          if (!showTitle) {
-            titleEl.style.display = 'none';
-          } else if (page && pageTexts?.[page]?.subHeaderTitle) {
-            titleEl.textContent = pageTexts[page].subHeaderTitle;
-          }
-        }
-      })
-      .catch(err => console.error('Помилка при завантаженні sub-header:', err));
   }
 
   // === Підтягування текстів для сторінки

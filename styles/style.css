@@ -629,3 +629,102 @@ body[data-page="checkout"] .input-group {
 .card-collapsed .divider-horizontal {
   display: none;
 }
+
+/* --- Logged-in Header --- */
+.logged-in-header {
+  height: 64px;
+  padding: 0 20px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #E8E8E8;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logged-in-container {
+  display: flex;
+  flex: 1;
+  margin-left: 45px; /* якщо ти хочеш залишити відступ від логотипа */
+  justify-content: space-evenly; /* АБО space-between, залежно від бажаного ефекту */
+  align-items: center;
+  gap: 20px; /* можна збільшити або прибрати */
+}
+
+.nav-links {
+  display: flex;
+  gap: 40px;
+}
+
+.nav-links a {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 400;
+  color: #39393A;
+  text-decoration: none;
+}
+
+.nav-links a:hover {
+  text-decoration: underline;
+}
+
+.search-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center; /* центрує вміст по горизонталі */
+}
+
+.search-input {
+  max-width: 350px;
+  width: 100%;
+  height: 40px;
+  padding: 8px;
+  font-size: 14px;
+  background: #F6F6F6;
+  border: none;
+  border-bottom: 1px solid #B0B0B2;
+  font-family: 'Inter', sans-serif;
+  box-sizing: border-box;
+}
+
+
+.search-input::placeholder {
+  color: #6F6F71;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon-wrapper {
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-wrapper img {
+  width: 20px;
+  height: 20px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.add-new-button {
+  white-space: nowrap;     /* ← запобігає переносу */
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 999px;
+  background-color: #006DD9;
+  color: white;
+  border: none;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+}
